@@ -4,6 +4,8 @@ const path      = require('path')
 const env       = process.env.NODE_ENV || 'development'
 const config    = require(__dirname + '/config/config.json')[env]
 const utils     = require(__dirname + '/utils/databaseUtils.js')
+const index     = require(__dirname + '/routes/index.js')
+const posts     = require(__dirname + '/routes/posts.js')
 const express   = require('express')
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
@@ -17,8 +19,11 @@ models.posts.findAll()
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.send('Hello World.')
+app.use('/', index)
+app.use('/posts', posts)
+
+app.use((req, res) => {
+  res.status(404).send('404 error. Page not found')
 })
 
 app.listen(3000, () => {
