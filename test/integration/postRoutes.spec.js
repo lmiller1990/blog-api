@@ -48,6 +48,17 @@ describe('post routes', function() {
     })
   })
 
+  it('returns a post by id', function(done) {
+    this.models.Post.create({
+      title: 'Existing post'
+    }).then(function () {
+      request(app)
+        .get('/posts/edit/1')
+        .expect(200, /Existing post/)
+        .end(done)
+    })
+  })
+
   it('creates a user', function(done) {
     const self = this
     request(app)

@@ -3,7 +3,7 @@ const models = require('../models')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  models.Post.findAll().then(function (allPosts) {
+  models.Post.findAll().then(function(allPosts) {
     res.json({
       result: allPosts
     })
@@ -16,7 +16,7 @@ router.get('/:id', (req, res) => {
     where: {
       id: parseInt(req.params.id)
     }
-  }).then(function (post) {
+  }).then(function(post) {
     res.json({
       result: post
     })
@@ -27,10 +27,21 @@ router.post('/create', (req, res) => {
   models.Post.create({
     title: req.body.title,
     content: req.body.content
-  }).then(function () {
+  }).then(function() {
     res.redirect('/')
-  }) 
+  })
 })
 
+router.get('/edit/:id', (req, res) => {
+  models.Post.findAll({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  }).then(function(post) {
+    res.json({
+      result: post
+    })
+  })
+})
 
 module.exports = router
