@@ -51,7 +51,7 @@ describe('post routes', function() {
   it('returns a post by id', function(done) {
     this.models.Post.create({
       title: 'Existing post'
-    }).then(function () {
+    }).then(function() {
       request(app)
         .get('/posts/edit/1')
         .expect(200, /Existing post/)
@@ -59,19 +59,53 @@ describe('post routes', function() {
     })
   })
 
+  it('updates an existing user', function(done) {
+    const self = this
+    this.models.Post.create({
+        title: 'Old title'
+      })
+      .then(function() {
+        request(app)
+          .post('/posts/edit/1')
+          .type('form')
+          .set('Accept', /application\/json/)
+          .send({
+            title: "New title"
+          })
+          .expect(200)
+          .end(function(err, res) {
+            self.models.Post.findAll({
+              where: {
+                title: "New title"
+              }
+            }).then(function(allPosts) {
+              expect(allPosts.length).to.equal(1)
+              expect(allPosts[0].title).to.equal("New title")
+              done()
+            })
+          })
+        end(done)
+      })
+  })
+
   it('creates a user', function(done) {
     const self = this
     request(app)
       .post('/posts/create')
+      .type('form')
+      .set('Accept', /application\/json/)
       .send({
         title: 'New post',
         content: 'New post content'
       })
       .end(function(err, res) {
-        if (err) throw new Error('Error', err)
-
-        self.models.Post.findAll().then(function(allPosts) {
+        self.models.Post.findAll({
+          where: {
+            id: 1
+          }
+        }).then(function(allPosts) {
           expect(allPosts.length).to.equal(1)
+          expect(allPosts[0].title).to.equal("New post")
           done()
         })
       })

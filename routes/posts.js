@@ -24,6 +24,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
+  console.log('Body is:', req.body)
   models.Post.create({
     title: req.body.title,
     content: req.body.content
@@ -42,6 +43,21 @@ router.get('/edit/:id', (req, res) => {
       result: post
     })
   })
+})
+
+router.post('/edit/:id', (req, res) => {
+  console.log('id is', req.params.id)
+  models.Post.update({
+      id: _id  
+    }, {
+      where: {
+        id: _id
+      }
+    })
+    .then(function() {
+      //m.Post.findAll({ where: { id: _id } }).then(function(p) { console.log('new',p) })
+      res.redirect('/posts/' + req.params.id)
+    })
 })
 
 module.exports = router
