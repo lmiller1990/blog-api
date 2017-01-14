@@ -1,6 +1,7 @@
 const models    = require('./models')
 const Sequelize = require('sequelize')
 const path      = require('path')
+const bodyParser= require('body-parser')
 const env       = process.env.NODE_ENV || 'development'
 const config    = require(__dirname + '/config/config.json')[env]
 const utils     = require(__dirname + '/utils/databaseUtils.js')
@@ -16,6 +17,7 @@ utils.authenticate(sequelize)
 
 const app = express()
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/', index)
 app.use('/posts', posts)
 

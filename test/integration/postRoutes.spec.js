@@ -1,6 +1,7 @@
 const request = require('supertest')
 const Bluebird = require('bluebird')
 const app = require('../../app')
+const expect = require('chai').expect
 
 describe('post routes', function() {
   before(function() {
@@ -36,13 +37,32 @@ describe('post routes', function() {
 
   it('returns a post using the :id param', function(done) {
     this.models.Post.create({
-      title: 'Single post', content: 'Some content' 
-    }).then(function () {
+      title: 'Single post',
+      content: 'Some content'
+    }).then(function() {
       request(app)
         .get('/posts/1')
         .expect(200, /Single post/)
         .expect(200, /Some content/)
         .end(done)
     })
+  })
+
+  it('creates a user', function(done) {
+    const self = this
+    request(app)
+      .post('/posts/create')
+      .send({
+        title: 'New post',
+        content: 'New post content'
+      })
+      .end(function(err, res) {
+        if (err) throw new Error('Error', err)
+
+        self.models.Post.findAll().then(function(allPosts) {
+          expect(allPosts.length).to.equal(1)
+          done()
+        })
+      })
   })
 })

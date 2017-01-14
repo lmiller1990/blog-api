@@ -23,4 +23,14 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.post('/create', (req, res) => {
+  models.Post.create({
+    title: req.body.title,
+    content: req.body.content
+  }).then(function () {
+    res.redirect('/')
+  }) 
+})
+
+
 module.exports = router

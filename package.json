@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "bluebird": "^3.4.7",
+    "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "cross-env": "^3.1.4",
     "mocha": "^3.2.0",
