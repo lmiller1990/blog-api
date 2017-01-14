@@ -14,9 +14,6 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 utils.authenticate(sequelize)
 
-models.posts.findAll()
-  .then = posts => console.log('Selected all posts:', posts)
-
 const app = express()
 
 app.use('/', index)
@@ -30,4 +27,4 @@ app.listen(3000, () => {
   console.log('App started on port 3000.')
 })
 
-
+module.exports = app

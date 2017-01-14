@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var posts = sequelize.define('posts', {
+  var Post = sequelize.define('Post', {
     title: DataTypes.STRING,
     content: DataTypes.TEXT
   }, {
@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return posts;
+  return Post;
 };

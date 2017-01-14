@@ -3,7 +3,7 @@ const models = require('../models')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  models.posts.findAll().then(function (allPosts) {
+  models.Post.findAll().then(function (allPosts) {
     res.json({
       result: allPosts
     })
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   console.log(`Finding post with id ${req.params.id}`)
-  models.posts.findAll({
+  models.Post.findAll({
     where: {
       id: parseInt(req.params.id)
     }
