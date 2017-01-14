@@ -3,7 +3,7 @@ const Bluebird = require('bluebird')
 const app = require('../../app')
 const expect = require('chai').expect
 
-describe('post routes', function() {
+describe('/posts', function() {
   before(function() {
     return require('../../models').sequelize.sync()
   })
@@ -84,7 +84,6 @@ describe('post routes', function() {
               done()
             })
           })
-        end(done)
       })
   })
 

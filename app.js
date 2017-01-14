@@ -13,7 +13,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 //models.sequelize.sync()
 
-utils.authenticate(sequelize)
+//utils.authenticate(sequelize)
 
 const app = express()
 
