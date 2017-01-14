@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "nodemon app.js",
-    "integration": "mocha test/integration/*.spec.js",
+    "integration": "cross-env NODE_ENV=test mocha test/integration/*.spec.js",
     "unit": ""
   },
   "dependencies": {
@@ -13,6 +13,7 @@
   "devDependencies": {
     "bluebird": "^3.4.7",
     "chai": "^3.5.0",
+    "cross-env": "^3.1.4",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "supertest": "^2.0.1"

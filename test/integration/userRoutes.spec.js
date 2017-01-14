@@ -3,6 +3,10 @@ const Bluebird = require('bluebird')
 const app      = require('../../app')
 
 describe('post routes', function() {
+  before(function () {
+    return require('../../models').sequelize.sync()
+  })
+
   beforeEach(function() {
     this.models = require('../../models')
 
