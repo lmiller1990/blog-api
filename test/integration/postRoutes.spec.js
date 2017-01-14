@@ -72,7 +72,6 @@ describe('/posts', function() {
           .send({
             title: "New title"
           })
-          .expect(200)
           .end(function(err, res) {
             self.models.Post.findAll({
               where: {
@@ -81,6 +80,7 @@ describe('/posts', function() {
             }).then(function(allPosts) {
               expect(allPosts.length).to.equal(1)
               expect(allPosts[0].title).to.equal("New title")
+              expect(res.headers.location).to.equal("/posts/1")
               done()
             })
           })
