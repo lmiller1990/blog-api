@@ -31,6 +31,17 @@ router.post('/create', (req, res) => {
   })
 })
 
+
+router.delete('/:id', (req, res) => {
+  models.Post.destroy({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  }).then(function () {
+    res.redirect('/') 
+  })
+})
+
 router.get('/edit/:id', (req, res) => {
   models.Post.findAll({
     where: {

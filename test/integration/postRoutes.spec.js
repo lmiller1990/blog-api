@@ -109,4 +109,21 @@ describe('/posts', function() {
         })
       })
   })
+
+  it('deletes a post', function(done) {
+    const self = this
+    this.models.Post.create({
+        title: 'Old title'
+      })
+      .then(function() {
+        request(app)
+          .delete('/posts/1')
+          .end(function(err, res) {
+            self.models.Post.findAll().then(function(allPosts) {
+              expect(allPosts.length).to.equal(0)
+              done()
+            })
+          })
+      })
+  })
 })
