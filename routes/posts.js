@@ -56,7 +56,8 @@ router.get('/edit/:id', (req, res) => {
 
 router.post('/update/:id', (req, res) => {
   models.Post.update({
-      title: req.body.title
+      title: req.body.title,
+      content: req.body.content
     }, {
       where: {
         id: parseInt(req.params.id)
