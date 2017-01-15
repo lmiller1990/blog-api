@@ -37,8 +37,8 @@ router.delete('/:id', (req, res) => {
     where: {
       id: parseInt(req.params.id)
     }
-  }).then(function () {
-    res.redirect('/') 
+  }).then(function() {
+    res.redirect('/')
   })
 })
 
@@ -54,11 +54,9 @@ router.get('/edit/:id', (req, res) => {
   })
 })
 
-router.post('/edit/:id', (req, res) => {
+router.post('/update/:id', (req, res) => {
   models.Post.update({
-      id: parseInt(req.params.id),
-      title: req.body.title,
-      content: req.body.content
+      title: req.body.title
     }, {
       where: {
         id: parseInt(req.params.id)

@@ -18,7 +18,7 @@ describe('/posts', function() {
     ])
   })
 
-  it('returns a list of all posts', function(done) {
+  it('/index returns a list of all posts', function(done) {
     this.models.Post.bulkCreate([{
       title: 'Post 1',
       content: 'Content 1'
@@ -35,7 +35,7 @@ describe('/posts', function() {
     })
   })
 
-  it('returns a post using the :id param', function(done) {
+  it('/:id returns a single post', function(done) {
     this.models.Post.create({
       title: 'Single post',
       content: 'Some content'
@@ -48,7 +48,7 @@ describe('/posts', function() {
     })
   })
 
-  it('returns a post by id', function(done) {
+  it('/edit/:id returns a post by id', function(done) {
     this.models.Post.create({
       title: 'Existing post'
     }).then(function() {
@@ -59,14 +59,15 @@ describe('/posts', function() {
     })
   })
 
-  it('updates an existing user', function(done) {
+  it('/update/:id partially updates an existing post', function(done) {
     const self = this
     this.models.Post.create({
-        title: 'Old title'
-      })
+      title: 'Old title',
+      content: 'Old content'
+    })
       .then(function() {
         request(app)
-          .post('/posts/edit/1')
+          .post('/posts/update/1')
           .type('form')
           .set('Accept', /application\/json/)
           .send({
@@ -80,6 +81,7 @@ describe('/posts', function() {
             }).then(function(allPosts) {
               expect(allPosts.length).to.equal(1)
               expect(allPosts[0].title).to.equal("New title")
+              expect(allPosts[0].content).to.equal("Old content")
               expect(res.headers.location).to.equal("/posts/1")
               done()
             })
@@ -87,7 +89,7 @@ describe('/posts', function() {
       })
   })
 
-  it('creates a user', function(done) {
+  it('/create persists a new post', function(done) {
     const self = this
     request(app)
       .post('/posts/create')
@@ -110,11 +112,11 @@ describe('/posts', function() {
       })
   })
 
-  it('deletes a post', function(done) {
+  it('/delete/:id destroys a post', function(done) {
     const self = this
     this.models.Post.create({
-        title: 'Old title'
-      })
+      title: 'Old title'
+    })
       .then(function() {
         request(app)
           .delete('/posts/1')
