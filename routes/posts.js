@@ -18,6 +18,17 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.get('/content/:id', (req, res) => {
+  models.Post.findAll({
+    attributes: ['content'],
+    where: {
+      id: parseInt(req.params.id)
+    } 
+  }).then(function (content) {
+    res.json(content)
+  })
+})
+
 router.post('/create', (req, res) => {
   models.Post.create({
     title: req.body.title,
