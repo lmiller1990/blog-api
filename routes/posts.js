@@ -4,9 +4,7 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
   models.Post.findAll().then(function(allPosts) {
-    res.json({
-      result: allPosts
-    })
+    res.json(allPosts)
   })
 })
 
@@ -16,9 +14,7 @@ router.get('/:id', (req, res) => {
       id: parseInt(req.params.id)
     }
   }).then(function(post) {
-    res.json({
-      result: post
-    })
+    res.json(post)
   })
 })
 
@@ -49,7 +45,7 @@ router.get('/edit/:id', (req, res) => {
     }
   }).then(function(post) {
     res.json({
-      result: post
+      post
     })
   })
 })
