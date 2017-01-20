@@ -30,6 +30,7 @@ router.get('/content/:id', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
+	console.log(req.body)
   models.Post.create({
     title: req.body.title,
     content: req.body.content
