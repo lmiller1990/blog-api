@@ -34,7 +34,8 @@ router.post('/create', (req, res) => {
     title: req.body.title,
     content: req.body.content
   }).then(function() {
-    res.redirect('/')
+    // res.redirect('/')
+    res.status(201).json()
   })
 })
 
