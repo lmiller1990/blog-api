@@ -73,7 +73,7 @@ router.post('/update/:id', (req, res) => {
       }
     })
     .then(function() {
-      res.redirect('/posts/' + req.params.id)
+      res.status(201).json()
     })
 })
 
